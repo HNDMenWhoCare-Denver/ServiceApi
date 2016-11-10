@@ -1,0 +1,357 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.5.3
+-- Dumped by pg_dump version 9.5.3
+
+-- Started on 2016-11-03 06:40:09
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 1 (class 3079 OID 12355)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2156 (class 0 OID 0)
+-- Dependencies: 1
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 186 (class 1259 OID 139815)
+-- Name: contacts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE contacts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE contacts_id_seq OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 181 (class 1259 OID 106916)
+-- Name: Contacts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE "Contacts" (
+    "Id" integer DEFAULT nextval('contacts_id_seq'::regclass) NOT NULL,
+    "Email" text,
+    "Phone" text,
+    "Organization" text,
+    "Created" date,
+    "FirstName" text,
+    "LastName" text,
+    "Newsletter" boolean
+);
+
+
+ALTER TABLE "Contacts" OWNER TO postgres;
+
+--
+-- TOC entry 188 (class 1259 OID 139823)
+-- Name: contents_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE contents_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE contents_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 182 (class 1259 OID 106945)
+-- Name: Contents; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE "Contents" (
+    "Id" integer DEFAULT nextval('contents_id_seq'::regclass) NOT NULL,
+    "Title" text,
+    "Content" bytea,
+    "Created" date,
+    "CreatedBy" text
+);
+
+
+ALTER TABLE "Contents" OWNER TO postgres;
+
+--
+-- TOC entry 190 (class 1259 OID 139829)
+-- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE events_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 185 (class 1259 OID 106969)
+-- Name: Events; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE "Events" (
+    "Id" integer DEFAULT nextval('events_id_seq'::regclass) NOT NULL,
+    "Name" text,
+    "Start" date,
+    "End" date,
+    "Created" date,
+    "Description" text
+);
+
+
+ALTER TABLE "Events" OWNER TO postgres;
+
+--
+-- TOC entry 189 (class 1259 OID 139826)
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE roles_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 184 (class 1259 OID 106961)
+-- Name: Roles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE "Roles" (
+    "Id" integer DEFAULT nextval('roles_id_seq'::regclass) NOT NULL,
+    "Role" text
+);
+
+
+ALTER TABLE "Roles" OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 139818)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 183 (class 1259 OID 106953)
+-- Name: Users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE "Users" (
+    "Id" integer DEFAULT nextval('users_id_seq'::regclass) NOT NULL,
+    "FirstName" text,
+    "LastName" text,
+    "Role" integer,
+    "Created" date
+);
+
+
+ALTER TABLE "Users" OWNER TO postgres;
+
+--
+-- TOC entry 2139 (class 0 OID 106916)
+-- Dependencies: 181
+-- Data for Name: Contacts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Contacts" ("Id", "Email", "Phone", "Organization", "Created", "FirstName", "LastName", "Newsletter") FROM stdin;
+1	sjclark88@gmail.com	303.884.9027	Devilfish Software	2016-10-25	Scot	Clark	\N
+2	scot.clark@devilfishsoftware.com	303.738.9291	Devilfish Software	2016-10-25	Audrey	Clark	\N
+3	scot.clark@devilfishsoftware.com	303.738.9291	Devilfish Software	2016-10-25	SJ	Clark	\N
+\.
+
+
+--
+-- TOC entry 2140 (class 0 OID 106945)
+-- Dependencies: 182
+-- Data for Name: Contents; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Contents" ("Id", "Title", "Content", "Created", "CreatedBy") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2143 (class 0 OID 106969)
+-- Dependencies: 185
+-- Data for Name: Events; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Events" ("Id", "Name", "Start", "End", "Created", "Description") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2142 (class 0 OID 106961)
+-- Dependencies: 184
+-- Data for Name: Roles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Roles" ("Id", "Role") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2141 (class 0 OID 106953)
+-- Dependencies: 183
+-- Data for Name: Users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "Users" ("Id", "FirstName", "LastName", "Role", "Created") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2157 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('contacts_id_seq', 3, true);
+
+
+--
+-- TOC entry 2158 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: contents_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('contents_id_seq', 1, false);
+
+
+--
+-- TOC entry 2159 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('events_id_seq', 1, false);
+
+
+--
+-- TOC entry 2160 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('roles_id_seq', 1, false);
+
+
+--
+-- TOC entry 2161 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, false);
+
+
+--
+-- TOC entry 2018 (class 2606 OID 106952)
+-- Name: Contents_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Contents"
+    ADD CONSTRAINT "Contents_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2024 (class 2606 OID 106976)
+-- Name: Events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Events"
+    ADD CONSTRAINT "Events_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2016 (class 2606 OID 106920)
+-- Name: Primary; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Contacts"
+    ADD CONSTRAINT "Primary" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2022 (class 2606 OID 106968)
+-- Name: Roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Roles"
+    ADD CONSTRAINT "Roles_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2020 (class 2606 OID 106960)
+-- Name: Users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Users"
+    ADD CONSTRAINT "Users_pkey" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 2155 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2016-11-03 06:40:10
+
+--
+-- PostgreSQL database dump complete
+--
+
