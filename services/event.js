@@ -12,12 +12,6 @@ var options = {
     promiseLib: promise
 };
 
-var cn = {
-    host: 'localhost',
-    port: 5433,
-    database: '100MenWhoCare',
-    user: '100MenWhoCareAdmin',
-};
 
 var cn = {
     host: 'ec2-174-129-3-207.compute-1.amazonaws.com', // server name or IP address;
