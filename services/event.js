@@ -19,9 +19,17 @@ var cn = {
     user: '100MenWhoCareAdmin',
 };
 
+var cn = {
+    host: 'ec2-174-129-3-207.compute-1.amazonaws.com', // server name or IP address;
+    port: 5432,
+    database: 'd4rf4m0c7tqcab',
+    user: 'hgxpqhmpqxlabi',
+    password: '4RiMskQo0jSLRm91Y-ITj3by1H'
+};
+
 var pgp = require('pg-promise')(options);
 var connectionString ='postgres://100MenWhoCareAdmin:Osu1991!@localhost:5432/100MenWhoCare';
-var db = pgp(connectionString);
+var db = pgp(cn);
 
 // add query functions
 
@@ -69,7 +77,7 @@ function getSingleEvent(req, res, next) {
 function createEvent(req, res, next) {
     req.body.age = parseInt(req.body.age);
     db.none('insert into "Events"("Name", "Start", "End", "Description",  "Created" )' +
-        'values(${id}, ${name}, ${start}, ${end}, ${description}, ${created})',
+        'values( ${name}, ${start}, ${end}, ${description}, ${created})',
         req.body)
         .then(function () {
             res.status(200)
