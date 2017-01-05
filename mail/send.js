@@ -14,8 +14,8 @@ function sendExternalEmail(from,to,subject,contentStr) {
     var content = new helper.Content('text/plain', contentStr);
     var mail = new helper.Mail(from_email, subject, to_email, content);
 
-//var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
-    var sg = require('sendgrid')('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');
+var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+   // var sg = require('sendgrid')('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');
 
     var request = sg.emptyRequest({
         method: 'POST',
