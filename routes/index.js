@@ -13,6 +13,7 @@ var dbc = require('../Services/contacts');
 var dbu = require('../Services/user');
 var dbe = require('../Services/event');
 var dbt = require('../Services/content');
+var dbcp = require('../Services/contentplacement');
 
 
 router.get('/api/contacts', dbc.getAllContacts);
@@ -38,6 +39,15 @@ router.get('/api/contents/:id', dbt.getSingleContent);
 router.post('/api/contents', dbt.createContent);
 router.put('/api/contents/:id', dbt.updateContent);
 router.delete('/api/contents/:id', dbt.removeContent);
+
+router.get('/api/contentplacements', dbcp.getAllContentPlacements);
+router.get('/api/contentplacements/:id', dbcp.getSingleContentPlacement);
+router.get('/api/contentplacementsbypage/:page', dbcp.getContentPlacementsByPageId);
+router.post('/api/contentplacements', dbcp.createContentPlacement);
+router.put('/api/contentplacements/:id', dbcp.updateContentPlacement);
+router.delete('/api/contentplacements/:id', dbcp.removeContentPlacement);
+
+
 
 
 
