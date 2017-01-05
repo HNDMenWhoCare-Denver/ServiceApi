@@ -1,4 +1,7 @@
 /**
+ * Created by SJClark on 1/3/2017.
+ */
+/**
  * Created by SJClark on 10/15/2016.
  */
 var promise = require('bluebird');
@@ -8,6 +11,7 @@ var options = {
     // Initialization Options
     promiseLib: promise
 };
+
 
 var cn = {
     host: 'ec2-174-129-3-207.compute-1.amazonaws.com', // server name or IP address;
@@ -27,15 +31,16 @@ var db = pgp(cn);
 // add query functions
 
 module.exports = {
-    getAllContents: getAllContents,
-    getSingleContent: getSingleContent,
-    createContent: createContent,
-    updateContent: updateContent,
-    removeContent: removeContent
+    getAllContentPlacements: getAllContentPlacements,
+    getSingleContentPlacement: getSingleContentPlacement,
+    createContentPlacement: createContentPlacement,
+    updateContentPlacement: updateContentPlacement,
+    removeContentPlacement: removeContentPlacement,
+    getContentPlacementsByPageId: getContentPlacementsByPageId
 };
 
-function getAllContents(req, res, next) {
-    db.any('SELECT * FROM "Contents";')
+function getAllContentPlacements(req, res, next) {
+    db.any('SELECT * FROM "ContentPlacement";')
         .then(function (data) {
             res.status(200)
                 .json({
@@ -51,9 +56,9 @@ function getAllContents(req, res, next) {
 
 
 
-function getSingleContent(req, res, next) {
-    var contentID = parseInt(req.params.id);
-    db.one('SELECT * FROM "Contents" where "Id" = $1', contentID)
+function getSingleContentPlacement(req, res, next) {
+    var contentPlacementID = parseInt(req.params.id);
+    db.one('SELECT * FROM "ContentPlacement" where "Id" = $1', contentPlacementID)
         .then(function (data) {
             res.status(200)
                 .json({
@@ -67,10 +72,26 @@ function getSingleContent(req, res, next) {
         });
 }
 
-function createContent(req, res, next) {
+function getContentPlacementsByPageId(req, res, next) {
+    var pageID = parseInt(req.params.page);
+    db.one('SELECT * FROM "ContentPlacement" where "Page" = $1', pageID)
+        .then(function (data) {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: data,
+                    message: 'Retrieved ONE content'
+                });
+        })
+        .catch(function (err) {
+            return next(err);
+        });
+}
+
+function createContentPlacement(req, res, next) {
     req.body.age = parseInt(req.body.age);
-    db.none('insert into "Contents"("Title", "Content","Created","CreatedBy" )' +
-        'values(${title}, ${content}, ${created}, ${createdby})',
+    db.none('insert into "ContentPlacement"("Page", "Column", "Row", "ContentId", "IsActive", "ContentUseType" )' +
+        'values(${title}, ${Page}, ${Column}, ${Row},${ContentId}, ${IsActive}, ${ContentUseType})',
         req.body)
         .then(function () {
             res.status(200)
@@ -84,7 +105,7 @@ function createContent(req, res, next) {
         });
 }
 
-function updateContent(req, res, next) {
+function updateContentPlacement(req, res, next) {
     db.none('update "Contents" set "Title"=$1, "Content"=$2  where "Id"=$3',
         [req.body.title, req.body.content, parseInt(req.params.id)])
         .then(function () {
@@ -99,9 +120,9 @@ function updateContent(req, res, next) {
         });
 }
 
-function removeContent(req, res, next) {
-    var contentID = parseInt(req.params.id);
-    db.result('delete from "Contents" where "Id" = $1', contentID)
+function removeContentPlacement(req, res, next) {
+    var contentPlacementID = parseInt(req.params.id);
+    db.result('delete from "Contents" where "Id" = $1', contentPlacementID)
         .then(function (result) {
             /* jshint ignore:start */
             res.status(200)

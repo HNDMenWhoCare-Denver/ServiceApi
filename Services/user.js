@@ -60,8 +60,8 @@ function getAllUsers(req, res, next) {
 
 
 function getSingleUser(req, res, next) {
-    var contactID = parseInt(req.params.id);
-    db.one('SELECT * FROM "Users" where "Id" = $1', contactID)
+    var userID = parseInt(req.params.id);
+    db.one('SELECT * FROM "Users" where "Id" = $1', userID)
         .then(function (data) {
             res.status(200)
                 .json({
@@ -109,8 +109,8 @@ function updateUser(req, res, next) {
 }
 
 function removeUser(req, res, next) {
-    var contactID = parseInt(req.params.id);
-    db.result('delete from "Users" where "Id" = $1', contactID)
+    var userID = parseInt(req.params.id);
+    db.result('delete from "Users" where "Id" = $1', userID)
         .then(function (result) {
             /* jshint ignore:start */
             res.status(200)
