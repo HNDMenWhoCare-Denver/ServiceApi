@@ -19,9 +19,18 @@ var cn = {
     user: '100MenWhoCareAdmin',
 };
 
+var cn = {
+    host: 'ec2-174-129-3-207.compute-1.amazonaws.com', // server name or IP address;
+    port: 5432,
+    database: 'd4rf4m0c7tqcab',
+    user: 'hgxpqhmpqxlabi',
+    password: '4RiMskQo0jSLRm91Y-ITj3by1H'
+};
+
+
 var pgp = require('pg-promise')(options);
 var connectionString ='postgres://100MenWhoCareAdmin:Osu1991!@localhost:5432/100MenWhoCare';
-var db = pgp(connectionString);
+var db = pgp(cn);
 
 // add query functions
 
@@ -51,8 +60,8 @@ function getAllUsers(req, res, next) {
 
 
 function getSingleUser(req, res, next) {
-    var contactID = parseInt(req.params.id);
-    db.one('SELECT * FROM "Users" where "Id" = $1', contactID)
+    var userID = parseInt(req.params.id);
+    db.one('SELECT * FROM "Users" where "Id" = $1', userID)
         .then(function (data) {
             res.status(200)
                 .json({
@@ -100,8 +109,8 @@ function updateUser(req, res, next) {
 }
 
 function removeUser(req, res, next) {
-    var contactID = parseInt(req.params.id);
-    db.result('delete from "Users" where "Id" = $1', contactID)
+    var userID = parseInt(req.params.id);
+    db.result('delete from "Users" where "Id" = $1', userID)
         .then(function (result) {
             /* jshint ignore:start */
             res.status(200)

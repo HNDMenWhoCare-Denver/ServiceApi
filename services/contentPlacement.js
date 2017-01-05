@@ -12,12 +12,14 @@ var options = {
     promiseLib: promise
 };
 
+
 var cn = {
     host: 'ec2-174-129-3-207.compute-1.amazonaws.com', // server name or IP address;
     port: 5432,
     database: 'd4rf4m0c7tqcab',
     user: 'hgxpqhmpqxlabi',
-    password: '4RiMskQo0jSLRm91Y-ITj3by1H'
+    password: '4RiMskQo0jSLRm91Y-ITj3by1H',
+    ssl: true
 };
 
 var pgp = require('pg-promise')(options);
@@ -33,11 +35,12 @@ module.exports = {
     getSingleContentPlacement: getSingleContentPlacement,
     createContentPlacement: createContentPlacement,
     updateContentPlacement: updateContentPlacement,
-    removeContentPlacement: removeContentPlacement
+    removeContentPlacement: removeContentPlacement,
+    getContentPlacementsByPageId: getContentPlacementsByPageId
 };
 
 function getAllContentPlacements(req, res, next) {
-    db.any('SELECT * FROM "Contents";')
+    db.any('SELECT * FROM "ContentPlacement";')
         .then(function (data) {
             res.status(200)
                 .json({
@@ -54,8 +57,24 @@ function getAllContentPlacements(req, res, next) {
 
 
 function getSingleContentPlacement(req, res, next) {
-    var contactID = parseInt(req.params.id);
-    db.one('SELECT * FROM "Contents" where "Id" = $1', contactID)
+    var contentPlacementID = parseInt(req.params.id);
+    db.one('SELECT * FROM "ContentPlacement" where "Id" = $1', contentPlacementID)
+        .then(function (data) {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: data,
+                    message: 'Retrieved ONE content'
+                });
+        })
+        .catch(function (err) {
+            return next(err);
+        });
+}
+
+function getContentPlacementsByPageId(req, res, next) {
+    var pageID = parseInt(req.params.page);
+    db.one('SELECT * FROM "ContentPlacement" where "Page" = $1', pageID)
         .then(function (data) {
             res.status(200)
                 .json({
@@ -102,8 +121,8 @@ function updateContentPlacement(req, res, next) {
 }
 
 function removeContentPlacement(req, res, next) {
-    var contactID = parseInt(req.params.id);
-    db.result('delete from "Contents" where "Id" = $1', contactID)
+    var contentPlacementID = parseInt(req.params.id);
+    db.result('delete from "Contents" where "Id" = $1', contentPlacementID)
         .then(function (result) {
             /* jshint ignore:start */
             res.status(200)

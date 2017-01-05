@@ -22,7 +22,8 @@ var cn = {
     port: 5432,
     database: 'd4rf4m0c7tqcab',
     user: 'hgxpqhmpqxlabi',
-    password: '4RiMskQo0jSLRm91Y-ITj3by1H'
+    password: '4RiMskQo0jSLRm91Y-ITj3by1H',
+    ssl: true
 };
 
 var pgp = require('pg-promise')(options);
@@ -79,15 +80,17 @@ function getSingleContact(req, res, next) {
 }
 
 function createContact(req, res, next) {
-    req.body.age = parseInt(req.body.age);
+    var email = req.body.email;
     db.none('insert into "Contacts"("FirstName", "LastName", "Email", "Phone", "Organization", "Message","Newsletter","ReceiveEmails","Created" )' +
         'values( ${firstName}, ${lastName}, ${email}, ${phone}, ${organization}, ${message},${newsletter},${receiveEmails},${created})',
         req.body)
         .then(function () {
+            sendEmail(email)
             res.status(200)
                 .json({
                     status: 'success',
-                    message: 'Inserted one contact'
+                    message: 'Inserted one contact',
+                    email: email
                 });
         })
         .catch(function (err) {
@@ -127,16 +130,16 @@ function removeContact(req, res, next) {
             return next(err);
         });
 }
-function helloEmail(){
-    var helper = require('sendgrid').mail
+function sendEmail(email){
+   // var helper = require('sendgrid').mail
+    send.sendExternalEmail('sjclark88@gmail.com',email,'Welcome to OneHundrenMenWhoCare-Denver','Welcome to OneHundrenMenWhoCare-Denver');
+   // from_email = new helper.Email("test@example.com")
+   // to_email = new helper.Email("test@example.com")
+  //  subject = "Hello World from the SendGrid Node.js Library"
+   // content = new helper.Content("text/plain", "some text here")
+   // mail = new helper.Mail(from_email, subject, to_email, content)
+   // email = new helper.Email("test2@example.com")
+   // mail.personalizations[0].addTo(email)
 
-    from_email = new helper.Email("test@example.com")
-    to_email = new helper.Email("test@example.com")
-    subject = "Hello World from the SendGrid Node.js Library"
-    content = new helper.Content("text/plain", "some text here")
-    mail = new helper.Mail(from_email, subject, to_email, content)
-    email = new helper.Email("test2@example.com")
-    mail.personalizations[0].addTo(email)
-
-    return mail.toJSON()
+   // return mail.toJSON()
 }

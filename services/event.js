@@ -53,8 +53,8 @@ function getAllEvents(req, res, next) {
 
 
 function getSingleEvent(req, res, next) {
-    var contactID = parseInt(req.params.id);
-    db.one('SELECT * FROM "Events" where "Id" = $1', contactID)
+    var eventID = parseInt(req.params.id);
+    db.one('SELECT * FROM "Events" where "Id" = $1', eventID)
         .then(function (data) {
             res.status(200)
                 .json({
@@ -102,8 +102,8 @@ function updateEvent(req, res, next) {
 }
 
 function removeEvent(req, res, next) {
-    var contactID = parseInt(req.params.id);
-    db.result('delete from "Events" where "Id" = $1', contactID)
+    var eventID = parseInt(req.params.id);
+    db.result('delete from "Events" where "Id" = $1', eventID)
         .then(function (result) {
             /* jshint ignore:start */
             res.status(200)
