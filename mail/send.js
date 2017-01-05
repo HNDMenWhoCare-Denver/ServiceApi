@@ -2,7 +2,11 @@
 * Created by SJClark on 11/27/2016.
 */
 
-function helloEmail(from,to,subject,contentStr) {
+module.exports = {
+    sendExternalEmail: sendExternalEmail
+};
+
+function sendExternalEmail(from,to,subject,contentStr) {
     var helper = require('sendgrid').mail;
     var from_email = new helper.Email(from);
     var to_email = new helper.Email(to);
