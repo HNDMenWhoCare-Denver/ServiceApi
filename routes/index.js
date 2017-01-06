@@ -13,7 +13,7 @@ var dbc = require('../Services/contacts');
 var dbu = require('../Services/user');
 var dbe = require('../Services/event');
 var dbt = require('../Services/content');
-var dbcp = require('../Services/contentplacement');
+var dbcp = require('../Services/contentPlacement');
 
 
 router.get('/api/contacts', dbc.getAllContacts);

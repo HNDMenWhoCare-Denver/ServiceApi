@@ -9,7 +9,7 @@ var options = {
     // Initialization Options
     promiseLib: promise
 };
-/**
+/*
 var cnl = {
     host: 'localhost',
     port: 5433,
