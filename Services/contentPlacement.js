@@ -91,7 +91,7 @@ function getContentPlacementsByPageId(req, res, next) {
 function createContentPlacement(req, res, next) {
     req.body.age = parseInt(req.body.age);
     db.none('insert into "ContentPlacement"("Page", "Column", "Row", "ContentId", "IsActive", "ContentUseType" )' +
-        'values(${page}, ${column}, ${row},${contentId}, ${isactive}, ${contentusetype})',
+        'values(${page}, ${column}, ${row},${contentId}, ${isActive}, ${contentUseType})',
         req.body)
         .then(function () {
             res.status(200)
