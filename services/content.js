@@ -69,8 +69,8 @@ function getSingleContent(req, res, next) {
 
 function createContent(req, res, next) {
     req.body.age = parseInt(req.body.age);
-    db.none('insert into "Contents"("Title", "Content","Created","CreatedBy" )' +
-        'values(${title}, ${content}, ${created}, ${createdby})',
+    db.none('insert into "Contents"("Title", "Content","ContentStr","Created","CreatedBy" )' +
+        'values(${title}, ${content}, ${contentStr}, ${created}, ${createdby})',
         req.body)
         .then(function () {
             res.status(200)
@@ -85,8 +85,8 @@ function createContent(req, res, next) {
 }
 
 function updateContent(req, res, next) {
-    db.none('update "Contents" set "Title"=$1, "Content"=$2  where "Id"=$3',
-        [req.body.title, req.body.content, parseInt(req.params.id)])
+    db.none('update "Contents" set "Title"=$1, "Content"=$2 ,"ContentStr"$3 where "Id"=$4',
+        [req.body.title, req.body.content,req.body.contentStr, parseInt(req.params.id)])
         .then(function () {
             res.status(200)
                 .json({
