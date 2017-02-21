@@ -69,8 +69,8 @@ function getSingleContent(req, res, next) {
 
 function createContent(req, res, next) {
     req.body.age = parseInt(req.body.age);
-    db.none('insert into "Contents"("Title", "Content","Created","CreatedBy" )' +
-        'values(${title}, ${content}, ${created}, ${createdby})',
+    db.none('insert into "Contents"("Title", "Content","ContentStr", "Created","CreatedBy" )' +
+        'values(${title}, ${content}, ${contentStr}, ${created}, ${createdby})',
         req.body)
         .then(function () {
             res.status(200)
