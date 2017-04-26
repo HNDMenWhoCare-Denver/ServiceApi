@@ -17,6 +17,9 @@
     "morgan": "~1.7.0",
     "pg-promise": "^3.2.3",
     "sendgrid": "^4.7.1",
-	"serve-favicon": "~2.3.0"
+     "serve-favicon": "~2.3.0",
+    "storj": "^4.0.1",
+    "storj-lib": "^6.4.0",
+    "through": "^2.3.8"
   }
 }
