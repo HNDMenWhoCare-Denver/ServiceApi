@@ -14,6 +14,7 @@ var dbu = require('../Services/user');
 var dbe = require('../Services/event');
 var dbt = require('../Services/content');
 var dbcp = require('../Services/contentPlacement');
+var dbst = require('../Services/storage');
 
 
 router.get('/api/contacts', dbc.getAllContacts);
@@ -46,6 +47,17 @@ router.get('/api/contentplacementsbypage/:page', dbcp.getContentPlacementsByPage
 router.post('/api/contentplacements', dbcp.createContentPlacement);
 router.put('/api/contentplacements/:id', dbcp.updateContentPlacement);
 router.delete('/api/contentplacements/:id', dbcp.removeContentPlacement);
+
+
+router.get('/api/storage/retrieveKey', dbst.retrieveKey);
+router.get('/api/storage/authenticateUser', dbst.authenticateUser);
+router.get('/api/storage/generateKey', dbst.generateKey);
+router.get('/api/storage/retrieveKey', dbst.retrieveKey);
+router.post('/api/storage/authenticateKey', dbst.authenticateKey);
+router.get('/api/storage/getBuckets', dbst.getBuckets);
+router.post('/api/storage/upload', dbst.upload);
+router.get('/api/storage/getList', dbst.getList);
+router.get('/api/storage/:id', dbst.download);
 
 
 
