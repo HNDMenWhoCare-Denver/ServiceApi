@@ -58,7 +58,8 @@ router.get('/api/storage/getBuckets', dbst.getBuckets);
 router.post('/api/storage/upload', dbst.upload);
 router.get('/api/storage/getList', dbst.getList);
 router.get('/api/storage/:id', dbst.download);
-
+router.get('/api/storage/getFileKey', dbst.getFileKey);
+router.post('/api/storage/createBucket', dbst.createBucket);
 
 
 
