@@ -48,7 +48,6 @@ router.post('/api/contentplacements', dbcp.createContentPlacement);
 router.put('/api/contentplacements/:id', dbcp.updateContentPlacement);
 router.delete('/api/contentplacements/:id', dbcp.removeContentPlacement);
 
-
 router.get('/api/storage/retrieveKey', dbst.retrieveKey);
 router.get('/api/storage/authenticateUser', dbst.authenticateUser);
 router.get('/api/storage/generateKey', dbst.generateKey);
@@ -60,6 +59,7 @@ router.get('/api/storage/getList', dbst.getList);
 router.get('/api/storage/:id', dbst.download);
 router.get('/api/storage/getFileKey', dbst.getFileKey);
 router.post('/api/storage/createBucket', dbst.createBucket);
+
 
 
 
