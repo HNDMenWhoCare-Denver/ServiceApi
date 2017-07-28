@@ -23,6 +23,8 @@
     "serve-favicon": "~2.3.0",
     "storj": "^4.0.1",
     "storj-lib": "^6.4.0",
-    "through": "^2.3.8"
+    "through": "^2.3.8",
+      "aws-sdk": "2.x",
+    "ejs": "2.x"
   }
 }
